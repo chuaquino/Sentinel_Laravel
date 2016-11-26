@@ -1,0 +1,136 @@
+/* navbar css */
+nav#nav_app{
+  background: #23c7ab;
+  margin-bottom: 0px;
+}
+
+.navbar-default {
+    background-color: #23c7ab !important;
+    border-color: #23c7ab !important;
+}
+
+a.navbar-brand {
+    color: #fff !important;
+}
+
+ul.nav.navbar-nav.navbar-right a {
+    color: #fff;
+    background: #07bd9e;
+}
+
+
+/* side panel css */
+.admin_menu {
+    float: left;
+    background: #f6f6f6;
+    height: 100%;
+    width: 15%;
+    position: fixed;
+    padding: 1% 0%;
+    border-right: 1px solid #ddd;
+}
+
+ul.admin_ul {
+    list-style: none;
+    width: 100%;
+    padding-left: 0;
+}
+
+li.admin_ul {
+    padding: 5% 0% 5% 10%;
+}
+
+li.admin_ul:hover {
+    background: #d2d2d2;
+}
+
+li.admin_ul a {
+    text-decoration: none;
+    color: #5a5a5a;
+}
+
+span.icns {
+    margin-right: 5%;
+}
+
+/*dropdown css */
+
+ul.dropdown-menu {
+  background: #07bd9e;
+}
+
+a#dLabel.dmenu  {
+  background-color: #23c7ab;
+  color: #fff;
+}
+
+a#dLabel.dmenu:hover  {
+  background-color: #07bd9e;
+}
+
+
+
+/* container css */
+
+.container.login {
+    margin-top: 10%;
+}
+
+
+
+.dashboard {
+    float: right;
+    width: 85%;
+    padding: 1% 2%;
+    /*position: absolute;*/
+}
+
+
+/*calendar container css*/
+div#calendar{
+  overflow-x: scroll;
+  width: 100%;
+  height: 100vh;
+}
+
+td#fname, td#lname, td#roomnum, td#no{
+    padding-top: 1.5%;
+    white-space: nowrap;
+}
+
+td.tbl_th{
+  white-space: nowrap;
+}
+
+
+/* nav pills css */
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
