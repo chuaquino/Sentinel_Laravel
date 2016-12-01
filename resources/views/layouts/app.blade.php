@@ -115,14 +115,6 @@
             </div>
 
             <div class="dashboard">@yield('content')</div>
-
-
-            <!-- <div class="col-md-10">@yield('content')</div>
-            <div class="col-md-2 admin_menu">Admin Menu</div> -->
-
-          <!-- <div class="row">
-            @yield('content')
-          </div> -->
         </div>
     </div>
 

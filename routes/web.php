@@ -23,9 +23,11 @@ Route::group(['middleware' => 'admin'], function(){
 });
 
 //Guests controller routes
-Route::group(['middleware' => 'guest'], function(){
-  Route::get('/todays-menu', 'GuestController@todaysMenu');
-});
+// Route::group(['middleware' => 'guest'], function(){
+  Route::post('/store', 'GuestController@store');
+  Route::get('/todays-menu', 'GuestController@create');
+  Route::get('/my-account', 'GuestController@myAccount');
+// });
 
 // Auth::routes();
 

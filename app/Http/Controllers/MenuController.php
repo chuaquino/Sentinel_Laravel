@@ -59,7 +59,7 @@ class MenuController extends Controller
        $menu->menu_cat_id = $request->menu_cat_id;
        $menu->save();
 
-      return redirect()->route('menu.index')->with('alert-success','Menu data saved!');
+      return redirect()->route('menu.index')->with('alert-success','Menu added and saved!');
 
     }
 
@@ -111,7 +111,7 @@ class MenuController extends Controller
      $menu->menuDate = $request->menuDate;
      $menu->save();
 
-     return redirect()->route('menu.index')->with('alert-success','Menu data saved!');
+     return redirect()->route('menu.index')->with('alert-success','Menu updated and saved!');
     }
 
     /**
@@ -125,6 +125,6 @@ class MenuController extends Controller
       // delete data
       $menu = Menu::findOrFail($id);
       $menu->delete();
-      return redirect()->route('menu.index')->with('alert-success','Menu deleted!');
+      return redirect()->route('menu.index')->with('alert-success','Menu deleted and saved!');
     }
 }

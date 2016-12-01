@@ -102,12 +102,27 @@ td.tbl_th{
   white-space: nowrap;
 }
 
+/*Guest layout css*/
+
+header#guest_header {
+  margin-bottom: 6%;
+}
+
+div#guest-nav {
+    padding: 1% 2%;
+    text-align:center;
+    /*background: #f1f1f1;*/
+}
+
+li.guest-link {
+    width: 50%;
+}
 
 /* nav pills css */
 
 #exTab1 .tab-content {
-  color : white;
-  background-color: #428bca;
+  color : #000;
+  background-color: #fff;
   padding : 5px 15px;
 }
 

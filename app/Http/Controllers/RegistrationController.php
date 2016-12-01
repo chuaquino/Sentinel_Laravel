@@ -31,7 +31,7 @@ class RegistrationController extends Controller
 
     $role->users()->attach($user);
 
-    return redirect()->route('admin.index')->with('alert-success','Guest Data Saved!');
+    return redirect()->route('admin.index')->with('alert-success','Guest added and saved!');
   }
 
 }

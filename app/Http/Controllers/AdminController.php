@@ -97,7 +97,7 @@ class AdminController extends Controller
       $user->checkOut = $request->checkOut;
       $user->save();
 
-      return redirect()->route('admin.index')->with('alert-success','Guest data updated!');
+      return redirect()->route('admin.index')->with('alert-success','Guest data updated and saved!');
     }
 
     /**
@@ -111,7 +111,7 @@ class AdminController extends Controller
       // delete data
       $user = Users::findOrFail($id);
       $user->delete();
-      return redirect()->route('users.index')->with('alert-success','Guest Data Saved!');
+      return redirect()->route('admin.index')->with('alert-success','Guest data deleted!');
     }
 
     // public function registeredGuests(){
