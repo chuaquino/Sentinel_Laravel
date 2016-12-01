@@ -118,6 +118,12 @@ li.guest-link {
     width: 50%;
 }
 
+p.bg-info.info-box {
+    padding: 2% 1%;
+    border-radius: 5px;
+    color: #777;
+}
+
 /* nav pills css */
 
 #exTab1 .tab-content {

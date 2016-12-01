@@ -93,7 +93,7 @@ class MigrationCartalystSentinel extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('roles_id')->defaul('2')->unsigned();
+            $table->integer('roles_id')->default('2')->unsigned();
             $table->string('email');
             $table->string('password');
             $table->text('permissions')->nullable();

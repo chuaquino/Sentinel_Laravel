@@ -42,10 +42,18 @@ class GuestController extends Controller
       $dt = Carbon::now();
       $dateString = $dt->toFormattedDateString();
 
+      $tmrw = Carbon::tomorrow();
+      $tomorrow = $tmrw->toFormattedDateString();
+
+      $yesterday = Carbon::yesterday();
+      $ystrdy = $yesterday->toFormattedDateString();
+
       return view('guests.todays-menu', [
         'menus' => $menus,
         'date' => $date,
-        'dateString' => $dateString
+        'dateString' => $dateString,
+        'tomorrow' => $tomorrow
+        // 'ystrdy' => $ystrdy
       ]);
 
     }
