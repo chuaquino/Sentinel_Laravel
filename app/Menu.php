@@ -10,7 +10,7 @@ class Menu extends Model
 
   public function menucat()
   {
-    return $this->hasOne('App\MenuCat');
+    return $this->hasOne('App\MenuCat', 'id', 'menu_cat_id');
   }
 
   public function transaction()

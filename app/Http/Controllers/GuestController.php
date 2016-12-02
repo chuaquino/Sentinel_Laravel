@@ -34,26 +34,57 @@ class GuestController extends Controller
     public function create()
     {
       $date = Carbon::now()->format('y-m-d');
-      $menus = Menu::where('menuDate', $date)
+
+      $breakfasts = Menu::where('menu_cat.menuCatName', 'breakfast')
+              ->where('menuDate', $date)
               ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
               ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
               ->get();
 
-      $dt = Carbon::now();
-      $dateString = $dt->toFormattedDateString();
+      $dinners = Menu::where('menu_cat.menuCatName', 'dinner')
+              ->where('menuDate', $date)
+              ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
+              ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
+              ->get();
 
+      // Query Breakfast Menu for tomorrow
       $tmrw = Carbon::tomorrow();
       $tomorrow = $tmrw->toFormattedDateString();
+
+      $breakfastsTmrw = Menu::where('menu_cat.menuCatName', 'breakfast')
+              ->where('menuDate', $tmrw)
+              ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
+              ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
+              ->get();
+
+      $dinnerTmrw = Menu::where('menu_cat.menuCatName', 'dinner')
+              ->where('menuDate', $tmrw)
+              ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
+              ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
+              ->get();
+
 
       $yesterday = Carbon::yesterday();
       $ystrdy = $yesterday->toFormattedDateString();
 
+
+      $dt = Carbon::now();
+      $dateString = $dt->toFormattedDateString();
+      $timeString = $dt->toTimeString();
+
+
+
+
+
       return view('guests.todays-menu', [
-        'menus' => $menus,
         'date' => $date,
         'dateString' => $dateString,
-        'tomorrow' => $tomorrow
-        // 'ystrdy' => $ystrdy
+        'tomorrow' => $tomorrow,
+        'timeString' => $timeString,
+        'breakfasts' => $breakfasts,
+        'dinners' => $dinners,
+        'breakfastsTomorrow' => $breakfastsTmrw,
+        'dinnersTomorrow' => $dinnerTmrw,
       ]);
 
     }

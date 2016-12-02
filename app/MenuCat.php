@@ -10,6 +10,6 @@ class MenuCat extends Model
 
   public function menus()
   {
-     return $this->belongsTo('App\Menu');
+     return $this->belongsTo('App\Menu', 'menu_cat_id', 'menu_cat_id');
   }
 }

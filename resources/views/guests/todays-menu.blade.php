@@ -34,37 +34,37 @@
               {{ csrf_field() }}
               <table class="table">
                 <tr>
-                  <label for="transDate"><h3>{{ $dateString }}</h3></label><br/>
-                  <input  id ="transDate" type="text" name="transDate" value={{ $date }} hidden>
+                  <label><h3>{{ $dateString }}</h3></label><br/>
+                  <input  id ="transDate" type="text" name="transDate" value= {{ $date }} hidden>
                 </tr>
 
-                @foreach($menus as $menu)
+                @foreach($breakfasts as $breakfast)
                 <tr>
                   <td>Menu Name:</td>
-                  <td>{{ $menu->menuName }}</td>
+                  <td>{{ $breakfast->menuName }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Description:</td>
-                  <td>{{ $menu->menuDesc }}</td>
+                  <td>{{ $breakfast->menuDesc }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Price:</td>
-                  <td>{{ $menu->menuPrice }}</td>
+                  <td>{{ $breakfast->menuPrice }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Category:</td>
                   <td>
-                    {{ $menu->menuCatName }}
-                    <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                    {{ $breakfast->menuCatName }}
+                    <input id="menuCatName" type="hidden" name="transDescription" value={{ $breakfast->menuCatName }} hidden>
                   </td>
                 </tr>
 
-                <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                <input id="menuCatName" type="hidden" name="transDescription" value={{ $breakfast->menuCatName }} hidden>
                 <input type="text" name="guests_id" value="{{ Sentinel::getUser()->id}}" hidden><br/>
-                <input type="text" name="menus_id" value={{ $menu->id }} hidden>
+                <input type="text" name="menus_id" value={{ $breakfast->id }} hidden>
 
               </table>
 
@@ -79,43 +79,43 @@
               </div>
           </form>
           </div>
-
+          <!-- Breakfast Tomorrow  -->
           <div class="col-md-6">
             <form class="form-horizontal" role="form" method="POST" action="/store">
               {{ csrf_field() }}
               <table class="table">
                 <tr>
                   <label for="transDate"><h3>{{ $tomorrow }}</h3></label><br/>
-                  <input  id ="transDate" type="text" name="transDate" value={{ $date }} hidden>
+                  <input  id ="transDate" type="text" name="transDate" value= {{ $tomorrow }} hidden>
                 </tr>
 
-                @foreach($menus as $menu)
+                @foreach($breakfastsTomorrow as $breakfastTomorrow)
                 <tr>
                   <td>Menu Name:</td>
-                  <td>{{ $menu->menuName }}</td>
+                  <td>{{ $breakfastTomorrow->menuName }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Description:</td>
-                  <td>{{ $menu->menuDesc }}</td>
+                  <td>{{ $breakfastTomorrow->menuDesc }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Price:</td>
-                  <td>{{ $menu->menuPrice }}</td>
+                  <td>{{ $breakfastTomorrow->menuPrice }}</td>
                 </tr>
 
                 <tr>
                   <td>Menu Category:</td>
                   <td>
-                    {{ $menu->menuCatName }}
-                    <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                    {{ $breakfastTomorrow->menuCatName }}
+                    <input id="menuCatName" type="text" name="transDescription" value={{ $breakfastTomorrow->menuCatName }} hidden>
                   </td>
                 </tr>
 
-                <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                <input id="menuCatName" type="text" name="transDescription" value={{ $breakfastTomorrow->menuCatName }} hidden>
                 <input type="text" name="guests_id" value="{{ Sentinel::getUser()->id}}" hidden><br/>
-                <input type="text" name="menus_id" value={{ $menu->id }} hidden>
+                <input type="text" name="menus_id" value={{ $breakfastTomorrow->id }} hidden>
 
               </table>
 
@@ -160,33 +160,33 @@
                     <input  id ="transDate" type="text" name="transDate" value={{ $date }} hidden>
                   </tr>
 
-                  @foreach($menus as $menu)
+                  @foreach($dinners as $dinner)
                   <tr>
                     <td>Menu Name:</td>
-                    <td>{{ $menu->menuName }}</td>
+                    <td>{{ $dinner->menuName }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Description:</td>
-                    <td>{{ $menu->menuDesc }}</td>
+                    <td>{{ $dinner->menuDesc }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Price:</td>
-                    <td>{{ $menu->menuPrice }}</td>
+                    <td>{{ $dinner->menuPrice }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Category:</td>
                     <td>
-                      {{ $menu->menuCatName }}
-                      <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                      {{ $dinner->menuCatName }}
+                      <input id="menuCatName" type="text" name="transDescription" value={{ $dinner->menuCatName }} hidden>
                     </td>
                   </tr>
 
-                  <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                  <input id="menuCatName" type="text" name="transDescription" value={{ $dinner->menuCatName }} hidden>
                   <input type="text" name="guests_id" value="{{ Sentinel::getUser()->id}}" hidden><br/>
-                  <input type="text" name="menus_id" value={{ $menu->id }} hidden>
+                  <input type="text" name="menus_id" value={{ $dinner->id }} hidden>
 
                 </table>
 
@@ -202,7 +202,7 @@
             </form>
           </div>
 
-          <!-- Tomorrows's Menu  -->
+          <!-- Tomorrows's Dinner Menu  -->
           <div class="col-md-6">
 
               <form class="form-horizontal" role="form" method="POST" action="/store">
@@ -213,33 +213,33 @@
                     <input  id ="transDate" type="text" name="transDate" value={{ $date }} hidden>
                   </tr>
 
-                  @foreach($menus as $menu)
+                  @foreach($dinnersTomorrow as $dinnerTomorrow)
                   <tr>
                     <td>Menu Name:</td>
-                    <td>{{ $menu->menuName }}</td>
+                    <td>{{ $dinnerTomorrow->menuName }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Description:</td>
-                    <td>{{ $menu->menuDesc }}</td>
+                    <td>{{ $dinnerTomorrow->menuDesc }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Price:</td>
-                    <td>{{ $menu->menuPrice }}</td>
+                    <td>{{ $dinnerTomorrow->menuPrice }}</td>
                   </tr>
 
                   <tr>
                     <td>Menu Category:</td>
                     <td>
-                      {{ $menu->menuCatName }}
-                      <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                      {{ $dinnerTomorrow->menuCatName }}
+                      <input id="menuCatName" type="text" name="transDescription" value={{ $dinnerTomorrow->menuCatName }} hidden>
                     </td>
                   </tr>
 
-                  <input id="menuCatName" type="text" name="transDescription" value={{ $menu->menuCatName }} hidden>
+                  <input id="menuCatName" type="text" name="transDescription" value={{ $dinnerTomorrow->menuCatName }} hidden>
                   <input type="text" name="guests_id" value="{{ Sentinel::getUser()->id}}" hidden><br/>
-                  <input type="text" name="menus_id" value={{ $menu->id }} hidden>
+                  <input type="text" name="menus_id" value={{ $dinnerTomorrow->id }} hidden>
 
                 </table>
 
