@@ -124,6 +124,18 @@ p.bg-info.info-box {
     color: #777;
 }
 
+a.collapse_link:link, a.collapse_link:hover, a.collapse_link:active, a.collapse_link:visited {
+    text-decoration: none;
+}
+
+div#exTab1 ul.nav.nav-tabs {
+    margin-bottom: 2%;
+}
+
+input.btn.btn-danger.delete_order {
+    margin: 0% 30%;
+}
+
 /* nav pills css */
 
 #exTab1 .tab-content {

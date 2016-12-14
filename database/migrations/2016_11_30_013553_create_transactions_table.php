@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
         $table->increments('id');
         $table->integer('guests_id')->unsigned();
         $table->integer('menus_id')->unsigned();
+        $table->string('transCat');
         $table->string('transDescription');
         $table->date('transDate');
         $table->timestamps();

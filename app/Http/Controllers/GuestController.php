@@ -23,16 +23,6 @@ class GuestController extends Controller
      */
     public function index()
     {
-        // return view('guests.todays-menu');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
       $date = Carbon::now()->format('y-m-d');
 
       $breakfasts = Menu::where('menu_cat.menuCatName', 'breakfast')
@@ -48,44 +38,84 @@ class GuestController extends Controller
               ->get();
 
       // Query Breakfast Menu for tomorrow
+      $tomorrow = Carbon::tomorrow()->format('y-m-d');
+
       $tmrw = Carbon::tomorrow();
-      $tomorrow = $tmrw->toFormattedDateString();
+      $tmrrw = $tmrw->toFormattedDateString();
 
       $breakfastsTmrw = Menu::where('menu_cat.menuCatName', 'breakfast')
-              ->where('menuDate', $tmrw)
+              ->where('menuDate', $tomorrow)
               ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
               ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
               ->get();
 
-      $dinnerTmrw = Menu::where('menu_cat.menuCatName', 'dinner')
-              ->where('menuDate', $tmrw)
+      $dinnersTmrw = Menu::where('menu_cat.menuCatName', 'dinner')
+              ->where('menuDate', $tomorrow)
               ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
               ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
               ->get();
-
 
       $yesterday = Carbon::yesterday();
       $ystrdy = $yesterday->toFormattedDateString();
 
-
-      $dt = Carbon::now();
+      $dt = Carbon::now('Asia/Hong_Kong');
       $dateString = $dt->toFormattedDateString();
       $timeString = $dt->toTimeString();
 
+      $ttmrw = Carbon::tomorrow('Asia/Hong_Kong');
+      $timetomorrow = $ttmrw->toTimeString();
 
+      $guest_id = Sentinel::getUser()->id;
 
+      $transactionsBreakfast = Transaction::where('guests_id', $guest_id)
+              ->where('transDate', $date)
+              ->where('transCat', 'breakfast')
+              ->get();
 
+      $transactionsBreakfastTmrw = Transaction::where('guests_id', $guest_id)
+              ->where('transDate', $tomorrow)
+              ->where('transCat', 'breakfast')
+              ->get();
+      $transactionsDinner = Transaction::where('guests_id', $guest_id)
+              ->where('transDate', $date)
+              ->where('transCat', 'dinner')
+              ->get();
+      $transactionsDinnerTmrw = Transaction::where('guests_id', $guest_id)
+              ->where('transDate', $tomorrow)
+              ->where('transCat', 'dinner')
+              ->get();
+      $transactions = Transaction::where('guests_id', $guest_id)
+              ->leftJoin('menus', 'transactions.menus_id', '=', 'menus.id')
+              ->select('transactions.*', 'menus.id', 'menus.menuPrice')
+              ->get();
 
-      return view('guests.todays-menu', [
+      return view('guests.index', [
         'date' => $date,
         'dateString' => $dateString,
         'tomorrow' => $tomorrow,
         'timeString' => $timeString,
         'breakfasts' => $breakfasts,
         'dinners' => $dinners,
-        'breakfastsTomorrow' => $breakfastsTmrw,
-        'dinnersTomorrow' => $dinnerTmrw,
+        'breakfastsTmrw' => $breakfastsTmrw,
+        'dinnersTmrw' => $dinnersTmrw,
+        'guest_id' => $guest_id,
+        'transactionsBreakfast' => $transactionsBreakfast,
+        'transactionsBreakfastTmrw' => $transactionsBreakfastTmrw,
+        'transactionsDinner' => $transactionsDinner,
+        'transactionsDinnerTmrw' => $transactionsDinnerTmrw,
+        'tmrrw' => $tmrrw,
+        'transactions' => $transactions,
+        'timetomorrow' => $timetomorrow
       ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
 
     }
 
@@ -95,23 +125,88 @@ class GuestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeBreakfast(Request $request)
     {
       // validation
        $this->validate($request,[
          'guests_id' => 'required',
          'menus_id' => 'required',
-         'transDescription' => 'required|min:6',
-         'transDate' => 'required|date',
+         'transCat' => 'required|min:6',
+         'transDescription' => 'required',
+         'transDate' => 'required|date'
       ]);
        // create new data
        $transaction = new transaction;
        $transaction->guests_id = $request->guests_id;
        $transaction->menus_id = $request->menus_id;
+       $transaction->transCat = $request->transCat;
        $transaction->transDescription = $request->transDescription;
        $transaction->transDate = $request->transDate;
        $transaction->save();
-       return redirect()->route('guests.todays-menu')->with('alert-success','Order Data Saved!');
+       return redirect()->route('guests.index')->with('alert-success-breakfast','Order Data Saved!');
+    }
+
+    public function storeBreakfastTmrw(Request $request)
+    {
+      // validation
+       $this->validate($request,[
+         'guests_id' => 'required',
+         'menus_id' => 'required',
+         'transCat' => 'required|min:6',
+         'transDescription' => 'required',
+         'transDate' => 'required|date'
+      ]);
+       // create new data
+       $transaction = new transaction;
+       $transaction->guests_id = $request->guests_id;
+       $transaction->menus_id = $request->menus_id;
+       $transaction->transCat = $request->transCat;
+       $transaction->transDescription = $request->transDescription;
+       $transaction->transDate = $request->transDate;
+       $transaction->save();
+       return redirect()->route('guests.index')->with('alert-success-breakfastTmrw','Order Data Saved!');
+    }
+
+    public function storeDinner(Request $request)
+    {
+      // validation
+       $this->validate($request,[
+         'guests_id' => 'required',
+         'menus_id' => 'required',
+         'transCat' => 'required|min:6',
+         'transDescription' => 'required',
+         'transDate' => 'required|date'
+      ]);
+       // create new data
+       $transaction = new transaction;
+       $transaction->guests_id = $request->guests_id;
+       $transaction->menus_id = $request->menus_id;
+       $transaction->transCat = $request->transCat;
+       $transaction->transDescription = $request->transDescription;
+       $transaction->transDate = $request->transDate;
+       $transaction->save();
+       return redirect()->route('guests.index')->with('alert-success-dinner','Order Data Saved!');
+    }
+
+    public function storeDinnerTmrw(Request $request)
+    {
+      // validation
+       $this->validate($request,[
+         'guests_id' => 'required',
+         'menus_id' => 'required',
+         'transCat' => 'required|min:6',
+         'transDescription' => 'required',
+         'transDate' => 'required|date'
+      ]);
+       // create new data
+       $transaction = new transaction;
+       $transaction->guests_id = $request->guests_id;
+       $transaction->menus_id = $request->menus_id;
+       $transaction->transCat = $request->transCat;
+       $transaction->transDescription = $request->transDescription;
+       $transaction->transDate = $request->transDate;
+       $transaction->save();
+       return redirect()->route('guests.index')->with('alert-success-dinnerTmrw','Order Data Saved!');
     }
 
     /**
@@ -156,17 +251,15 @@ class GuestController extends Controller
      */
     public function destroy($id)
     {
-        //
+      // delete data
+      $transactions = Transaction::findOrFail($id);
+      $transactions->delete();
+      return redirect()->route('guests.index')->with('alert-delete','Your menu order has been cancelled!');
     }
-
-    // public function todaysMenu()
-    // {
-    //   return view('guests.todays-menu');
-    // }
 
     public function myAccount()
     {
-      return view('guests.my-account');
+
     }
 
 }

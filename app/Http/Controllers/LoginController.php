@@ -23,7 +23,7 @@ class LoginController extends Controller
         return redirect('/admin');
 
       elseif($slug == 'guest')
-        return redirect ('/todays-menu');
+        return redirect ('/guests');
 
     }
 
