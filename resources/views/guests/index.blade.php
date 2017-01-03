@@ -5,6 +5,7 @@
       <li class="active guest-link"><a  href="#todaysmenu" data-toggle="tab"><h3>Today's Menu</h3></a></li>
       <li class="guest-link"><a href="#myaccount" data-toggle="tab"><h3>My Account</h3></a></li>
     </ul>
+
     <div class="tab-content clearfix">
       <div class="tab-pane active" id="todaysmenu">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -12,7 +13,7 @@
             <div class="panel-heading" role="tab" id="headingOne">
               <h3>
                 <a class="collapse_link" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Breakfasts
+                  Breakfast
                 </a>
               </h3>
               <p>Order cut off for Breakfast Meals for tomorrow is until 5pm of the day only.</p>
@@ -84,13 +85,12 @@
 
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            @if($timeString <= '05:00:00') {{-- if statement for breakfast cutoff time till 5AM of the same day --}}
-                          @if($transactionsBreakfast == '[]')
+                          @if($breakfast_cutoff == 'Can Order')
                               <button type="submit" class="btn btn-primary">
                                 Order
                               </button>
-                            @endif
                           @else
+                          <span>Breakfast Cutoff</span>
                           <button type="button" class="btn btn-primary disabled">
                             Order
                           </button>

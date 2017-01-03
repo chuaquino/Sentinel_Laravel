@@ -32,6 +32,8 @@ Route::group(['middleware' => 'admin'], function(){
   Route::post('/storeDinner', 'GuestController@storeDinner');
   Route::post('/storeDinnerTmrw', 'GuestController@storeDinnerTmrw');
   Route::get('/my-account', 'GuestController@myAccount');
+
+  Route::get('/my-calendar', 'CalendarController@calendar');
 // });
 
 // Auth::routes();

@@ -38,10 +38,12 @@ class GuestController extends Controller
               ->get();
 
       // Query Breakfast Menu for tomorrow
-      $tomorrow = Carbon::tomorrow()->format('y-m-d');
-
-      $tmrw = Carbon::tomorrow();
+      $tomorrow = Carbon::tomorrow('Asia/Hong_Kong')->format('y-m-d');
+      $tmrw = Carbon::tomorrow('Asia/Hong_Kong');
       $tmrrw = $tmrw->toFormattedDateString();
+      $tmrrw_time = $tmrw->toTimeString();
+
+
 
       $breakfastsTmrw = Menu::where('menu_cat.menuCatName', 'breakfast')
               ->where('menuDate', $tomorrow)
@@ -61,9 +63,6 @@ class GuestController extends Controller
       $dt = Carbon::now('Asia/Hong_Kong');
       $dateString = $dt->toFormattedDateString();
       $timeString = $dt->toTimeString();
-
-      $ttmrw = Carbon::tomorrow('Asia/Hong_Kong');
-      $timetomorrow = $ttmrw->toTimeString();
 
       $guest_id = Sentinel::getUser()->id;
 
@@ -89,6 +88,29 @@ class GuestController extends Controller
               ->select('transactions.*', 'menus.id', 'menus.menuPrice')
               ->get();
 
+      if($timeString <= '17:00:00' && $tmrrw_time <= '17:00:00')
+        {
+          $AmCutoff = 0;
+        }
+      else
+        {
+          $AmCutoff = 1;
+        }
+
+      // echo $timeString.'<br/>';
+      // echo $AmCutoff.'<br/>';
+      // echo $tmrrw_time;
+
+      if($AmCutoff == '0' && $transactionsBreakfast == '[]')
+        {
+          $breakfast_cutoff = 'Can Order';
+        }
+      else
+        {
+          $breakfast_cutoff = 'Cannot Order';
+        }
+      echo $breakfast_cutoff;
+
       return view('guests.index', [
         'date' => $date,
         'dateString' => $dateString,
@@ -105,7 +127,7 @@ class GuestController extends Controller
         'transactionsDinnerTmrw' => $transactionsDinnerTmrw,
         'tmrrw' => $tmrrw,
         'transactions' => $transactions,
-        'timetomorrow' => $timetomorrow
+        'breakfast_cutoff' => $breakfast_cutoff
       ]);
     }
 
