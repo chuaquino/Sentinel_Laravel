@@ -7,10 +7,12 @@ Route::get('/', function () {
 //Login routes
 Route::get('/login', 'LoginController@login');
 Route::post('/login', 'LoginController@postLogin');
-
 Route::get('/logout', 'LoginController@logout');
-
 Route::get('/restricted', 'AdminController@restricted');
+
+Route::get('/forgot-password', 'ForgotPasswordController@forgotPassword');
+Route::post('/forgot-password', 'ForgotPasswordController@postforgotPassword');
+
 
 
 //Admin routes

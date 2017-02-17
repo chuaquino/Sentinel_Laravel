@@ -26,7 +26,7 @@ class GuestController extends Controller
       $date = Carbon::now()->format('y-m-d');
 
       $breakfasts = Menu::where('menu_cat.menuCatName', 'breakfast')
-              ->where('menuDate', $date)
+              // ->where('menuDate', $date)
               ->leftJoin('menu_cat', 'menus.menu_cat_id', '=', 'menu_cat.menu_cat_id')
               ->select('menus.*', 'menu_cat.menu_cat_id', 'menu_cat.menuCatName')
               ->get();
@@ -111,6 +111,18 @@ class GuestController extends Controller
         }
       echo $breakfast_cutoff;
 
+      //weekly calendar
+      date_default_timezone_set('Asia/Hong_Kong');
+      $year = (isset($_GET['year'])) ? $_GET['year'] : date("Y");
+      $week = (isset($_GET['week'])) ? $_GET['week'] : date('W');
+      if($week > 52) {
+          $year++;
+          $week = 1;
+      } elseif($week < 1) {
+          $year--;
+          $week = 52;
+      }
+
       return view('guests.index', [
         'date' => $date,
         'dateString' => $dateString,
@@ -127,7 +139,9 @@ class GuestController extends Controller
         'transactionsDinnerTmrw' => $transactionsDinnerTmrw,
         'tmrrw' => $tmrrw,
         'transactions' => $transactions,
-        'breakfast_cutoff' => $breakfast_cutoff
+        'breakfast_cutoff' => $breakfast_cutoff,
+        'year' => $year,
+        'week' => $week
       ]);
     }
 

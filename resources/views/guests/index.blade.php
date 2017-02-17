@@ -1,5 +1,6 @@
 @extends('layouts.guestapp')
   @section('content')
+
   <div id="exTab1" class="container">
     <ul  class="nav nav-tabs">
       <li class="active guest-link"><a  href="#todaysmenu" data-toggle="tab"><h3>Today's Menu</h3></a></li>
@@ -8,6 +9,62 @@
 
     <div class="tab-content clearfix">
       <div class="tab-pane active" id="todaysmenu">
+
+        <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week == 1 ? 52 : $week -1).'&year='.($week == 1 ? $year - 1 : $year); ?>">Pre Week</a> <!--Previous week-->
+        <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week == 52 ? 1 : 1 + $week).'&year='.($week == 52 ? 1 + $year : $year); ?>">Next  Week</a> <!--Next week-->
+
+        <table class = "table">
+          <tr>
+            <td>Available Menu</td>
+            @if($week < 10)
+              <?php
+                $week = '0'. $week;
+              ?>
+            @endif
+
+            @for($day= 1; $day <= 7; $day++)
+              <?php
+                $d = strtotime($year ."W". $week . $day);
+                echo "<td = id '".date('y-m-d', $d)."'>"
+                        .date('Md', $d) ."<br>". date('D', $d)
+                    ."</td>";
+              ?>
+            @endfor
+          </tr>
+
+          <tr>
+            <td>Breakfast</td>
+            
+            <span class="me"></span>
+            @foreach($breakfasts as $breakfast)
+              @for($day= 1; $day <= 7; $day++)
+                <?php
+                  $d = strtotime($year ."W". $week . $day);
+                  echo "<td id ='".date('Y-m-d', $d)."'>"
+                    . "</td>";
+
+                  $a = date('Y-m-d', $d);
+                  echo $a;
+
+                ?>
+
+
+              @endfor
+            @endforeach
+          </tr>
+
+          <tr>
+            <td>Dinner</td>
+
+            @for($day= 1; $day <= 7; $day++)
+              <?php
+                $d = strtotime($year ."W". $week . $day);
+                echo "<td id ='".date('y-m-d', $d)."'>"."</td>";
+              ?>
+            @endfor
+          </tr>
+        </table>
+
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
@@ -407,7 +464,12 @@
                     <th>Description</th>
                     <th>Item Price</th>
                   </tr>
-                  <?php $no=1; ?>
+
+                  <?php
+                  $no=1;
+                  $total = array();
+                  ?>
+
                   @foreach($transactions as $transaction)
                   <tr>
                     <td>{{$no++}}</td>
@@ -416,13 +478,24 @@
                     <td>{{$transaction->transDescription}}</td>
                     <td>{{$transaction->menuPrice}}</td>
                   </tr>
+
+                  <?php
+                    array_push($total, $transaction->menuPrice);
+                  ?>
                   @endforeach
+
                   <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><b>Total</b></td>
-                    <td></td>
+                    <td>
+                      <b>Total</b>
+                    </td>
+                    <td>
+                      <?php
+                        echo array_sum($total);
+                      ?>
+                    </td>
                   </tr>
                 </table>
               </div>
