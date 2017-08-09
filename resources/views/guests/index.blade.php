@@ -34,7 +34,7 @@
 
           <tr>
             <td>Breakfast</td>
-            
+
             <span class="me"></span>
             @foreach($breakfasts as $breakfast)
               @for($day= 1; $day <= 7; $day++)
@@ -505,6 +505,8 @@
         </div>
       </div>
     </div>
+
+    
 
   </div>
 @stop

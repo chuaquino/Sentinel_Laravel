@@ -1,3 +1,72 @@
+img.trash_img {
+    width: 80%;
+    margin-bottom: 1%;
+}
+table.trash td {
+  padding: 1%;
+  text-align: center;
+}
+span.trash_title {
+    font-weight: bold;
+    font-size: 12pt;
+}
+ul.tab-list li {
+    font-size: 11pt;
+}
+
+ul.nav.nav-tabs li a {
+    font-size: 13pt;
+}
+
+div.tab-pane {
+    padding: 3% 0% 1% 0%;
+}
+
+.tab-list-content {
+    padding: 1%;
+}
+
+button.guide-nos {
+    background: #23c7ab;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    /* padding: 1%; */
+    margin-right: 1%;
+}
+
+ul.gc {
+    display: inline;
+}
+
+li.guide-img {
+    float: left;
+    height: auto;
+    width: 50%;
+    list-style: none;
+}
+
+li.guide-text {
+    float: right;
+    width: 50%;
+    list-style: none;
+}
+
+li.guide-list {
+    height: auto;
+    display: grid;
+    margin-bottom: 2%;
+}
+
+li.guide-list span {
+    margin-bottom: 1%;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.well.utilities {
+    background: #d9edf7;
+}
 /* navbar css */
 nav#nav_app{
   background: #23c7ab;
@@ -79,8 +148,9 @@ a#dLabel.dmenu:hover  {
 
 
 .dashboard {
-    float: right;
-    width: 85%;
+    /*float: right;
+    width: 85%; */
+    width:100%;
     padding: 1% 2%;
     /*position: absolute;*/
 }
